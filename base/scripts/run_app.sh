@@ -15,6 +15,8 @@ elif [[ $BUNDLE_URL ]]; then
   cd /tmp/bundle/
 elif [ -d /built_app ]; then
   cd /built_app
+elif [[ $METEORD_VOLBUILD ]]; then
+  cd /app
 else
   echo "=> You don't have an meteor app to run in this image."
   exit 1
@@ -37,8 +39,14 @@ if [[ $DELAY ]]; then
   sleep $DELAY
 fi
 
-# Honour already existing PORT setup
-export PORT=${PORT:-80}
-
-echo "=> Starting meteor app on port:$PORT"
-node main.js
+if [[ $METEORD_VOLBUILD ]]; then
+  # Default port 80; if ARGS provided, they should include "--port 80"
+  export ARGS=${ARGS:---port 80}
+  echo "=> Starting meteor app with args: $ARGS"
+  meteor $ARGS
+else
+  # Default port 80; honor an override
+  export PORT=${PORT:-80}
+  echo "=> Starting meteor app on port:$PORT"
+  node main.js
+fi
