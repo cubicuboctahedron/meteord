@@ -1,4 +1,4 @@
-FROM zitemedia/meteord:base
+FROM zitemedia/meteord:1.4.0.1-base
 MAINTAINER Zitemedia
 
 ONBUILD COPY ./ /app
