@@ -1,5 +1,5 @@
-FROM meteorhacks/meteord:base
-MAINTAINER MeteorHacks Pvt Ltd.
+FROM zitemedia/meteord:base
+MAINTAINER Zitemedia
 
 ONBUILD ENV METEORD_VOLBUILD=true
 
